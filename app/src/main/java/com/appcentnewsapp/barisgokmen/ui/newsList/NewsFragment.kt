@@ -1,10 +1,12 @@
 package com.appcentnewsapp.barisgokmen.ui.newsList
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +15,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.appcentnewsapp.barisgokmen.data.model.ArticlesItem
 import com.appcentnewsapp.barisgokmen.databinding.FragmentNewsBinding
+import com.appcentnewsapp.barisgokmen.ui.newsDetails.NewsDetailsActivity
 import com.appcentnewsapp.barisgokmen.ui.recycler.NewsRecyclerViewAdapter
 import com.appcentnewsapp.barisgokmen.ui.recycler.RecyclerViewItemClickListener
 import com.google.android.material.textfield.TextInputEditText
+import com.google.gson.Gson
 
 class NewsFragment : Fragment() {
 
@@ -84,7 +88,11 @@ class NewsFragment : Fragment() {
 
     private val recyclerViewItemClickListener = object : RecyclerViewItemClickListener<ArticlesItem>{
         override fun onClick(item: ArticlesItem?) {
-            //TODO: Navigation to news details
+            Log.d("NewsFragment", "Clicked item: ${item?.title}")
+            val intent = Intent(requireContext(), NewsDetailsActivity::class.java)
+            val itemJson = Gson().toJson(item)
+            intent.putExtra("clickedItemJson", itemJson)
+            startActivity(intent)
         }
     }
 
