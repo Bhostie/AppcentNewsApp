@@ -15,6 +15,13 @@
         android:theme="@style/Theme.AppcentNewsApp"
         tools:targetApi="31">
         <activity
+            android:name=".ui.webview.WebviewActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.newsDetails.NewsDetailsActivity"
             android:exported="false">
             <meta-data

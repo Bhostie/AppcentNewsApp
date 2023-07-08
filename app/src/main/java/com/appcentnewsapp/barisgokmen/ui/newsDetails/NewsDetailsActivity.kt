@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.appcentnewsapp.barisgokmen.data.model.ArticlesItem
 import com.appcentnewsapp.barisgokmen.databinding.ActivityNewsDetailsBinding
+import com.appcentnewsapp.barisgokmen.ui.webview.WebviewActivity
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
-
 
 class NewsDetailsActivity : AppCompatActivity() {
 
@@ -23,7 +23,6 @@ class NewsDetailsActivity : AppCompatActivity() {
         val itemJson = intent.getStringExtra("clickedItemJson")
         articlesItem = Gson().fromJson(itemJson, ArticlesItem::class.java)
 
-
         binding.tvNewsauthor.text = articlesItem?.author
         binding.tvNewscontent.text = articlesItem?.content
         binding.tvDate.text = articlesItem?.publishedAt
@@ -32,6 +31,13 @@ class NewsDetailsActivity : AppCompatActivity() {
 
         binding.ibBackbutton.setOnClickListener {
             finish()
+        }
+
+        binding.btnSource.setOnClickListener(){
+            val intent = intent
+            intent.setClass(this, WebviewActivity::class.java)
+            intent.putExtra("url", articlesItem?.url)
+            startActivity(intent)
         }
 
 
