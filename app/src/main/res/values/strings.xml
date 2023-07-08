@@ -3,4 +3,6 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_news_screen">Appcent NewsApp</string>
+    <string name="search_box_hint">Aranacak kelimeyi giriniz</string>
 </resources>

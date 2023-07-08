@@ -11,10 +11,8 @@ import com.appcentnewsapp.barisgokmen.data.repository.NewsRepository
 class NewsViewModel : ViewModel() {
 
     private val newsRepository = NewsRepository(RetrofitManager.newsService)
-
-
-    private val _newsArticles = MutableLiveData<List<ArticlesItem>>()
-    val newsArticles: LiveData<List<ArticlesItem>> = _newsArticles
+    private val _newsArticles = MutableLiveData<List<ArticlesItem>?>()
+    val newsArticles: LiveData<List<ArticlesItem>?> = _newsArticles
 
     fun searchNews(query: String) {
         newsRepository.searchNews(query, this)
@@ -22,15 +20,14 @@ class NewsViewModel : ViewModel() {
 
     // Called when news articles are successfully fetched
     fun onNewsFetched(newsArticles: List<ArticlesItem?>?) {
-        // Process the fetched news articles and update the UI
-        Log.d("onNewsFetched","onNewsFetched RUNNED")
 
-        // Filter out any null items from the list
-        val filteredArticles = newsArticles?.filterNotNull() ?: emptyList()
+        if (newsArticles != null) {
+            // Process the fetched news articles and update the UI
+            Log.d("onNewsFetched", "onNewsFetched RUN")
 
-        // Update the LiveData with the filtered list of news articles
-        _newsArticles.value = filteredArticles
-
+            // Update the LiveData with the list of news articles
+            _newsArticles.value = newsArticles.filterNotNull()
+        }
     }
 
     // Called when there is an error while fetching news articles

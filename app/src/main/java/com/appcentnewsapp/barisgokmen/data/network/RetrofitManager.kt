@@ -11,7 +11,6 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitManager {
 
-
     private lateinit var retrofit: Retrofit
     lateinit var newsService: NewsService
 
@@ -19,7 +18,6 @@ object RetrofitManager {
         retrofitBuilder()
         bindServices()
     }
-
     private fun retrofitBuilder() {
         retrofit = Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_API_URL)
@@ -27,11 +25,9 @@ object RetrofitManager {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-
     private fun bindServices() {
         newsService = retrofit.create(NewsService::class.java)
     }
-
     private fun getOkHttpClient(): OkHttpClient {
         val httpClient = OkHttpClient.Builder()
         httpClient.connectTimeout(60, TimeUnit.SECONDS)
@@ -40,7 +36,6 @@ object RetrofitManager {
 
         return httpClient.build()
     }
-
     private fun createHttpLoggingInterceptor() : HttpLoggingInterceptor {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
 
@@ -52,17 +47,12 @@ object RetrofitManager {
 
         return httpLoggingInterceptor
     }
-
     private fun createApiKeyInterceptor(): Interceptor {
         return Interceptor { chain ->
             val originalRequest = chain.request()
-
-            // Add the API key header to the request
             val modifiedRequest = originalRequest.newBuilder()
-                .header("Authorization", "31366299b80442aca2ae0664c3ccb667")
+                .header("Authorization", BuildConfig.API_KEY)
                 .build()
-
-            // Proceed with the modified request
             chain.proceed(modifiedRequest)
         }
     }

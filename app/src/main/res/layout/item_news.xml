@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_cover"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:fontFamily="@font/times"
+        tools:text="News Title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_cover"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:fontFamily="@font/times"
+        tools:text="Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_cover"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_description"
+        app:layout_constraintTop_toTopOf="@id/tv_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

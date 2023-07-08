@@ -7,15 +7,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.appcentnewsapp.barisgokmen.data.model.ArticlesItem
 import com.appcentnewsapp.barisgokmen.databinding.FragmentHomeBinding
 import com.appcentnewsapp.barisgokmen.databinding.FragmentNewsBinding
+import com.appcentnewsapp.barisgokmen.ui.recycler.NewsRecyclerViewAdapter
+import com.appcentnewsapp.barisgokmen.ui.recycler.RecyclerViewItemClickListener
 
 class NewsFragment : Fragment() {
 
     private lateinit var viewModel: NewsViewModel
-    private var _binding: FragmentNewsBinding? = null
+    private lateinit var newsListRecyclerViewAdapter: NewsRecyclerViewAdapter
 
+    private var _binding: FragmentNewsBinding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -30,27 +35,24 @@ class NewsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val newsViewModel =
-            ViewModelProvider(this).get(NewsViewModel::class.java)
 
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val textView: TextView = binding.textDashboard
+        initializeRecyclerAdapter()
 
         viewModel.newsArticles.observe(viewLifecycleOwner) { newsArticles ->
-            val responseText = buildResponseText(newsArticles)
-            textView.text = responseText
+            newsListRecyclerViewAdapter.setNewsList(newsArticles)
         }
 
         // Trigger the news search
-        viewModel.searchNews("besiktas")
+        viewModel.searchNews("ODTÜ")
+
+
 
         // Rest of your fragment code...
     }
@@ -60,7 +62,24 @@ class NewsFragment : Fragment() {
         _binding = null
     }
 
-    private fun buildResponseText(newsArticles: List<ArticlesItem>): String {
-        return newsArticles[0].toString()
+    private fun buildResponseText(newsArticles: List<ArticlesItem>?): String {
+        return newsArticles?.get(0)?.description.toString()
     }
+
+    private val recyclerViewItemClickListener = object : RecyclerViewItemClickListener<ArticlesItem>{
+        override fun onClick(item: ArticlesItem?) {
+            //TODO: Navigation to news details
+        }
+    }
+
+
+    private fun initializeRecyclerAdapter(){
+        newsListRecyclerViewAdapter = NewsRecyclerViewAdapter(recyclerViewItemClickListener)
+        binding?.rvNewsList?.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding?.rvNewsList?.adapter = newsListRecyclerViewAdapter
+    }
+
+
+
 }
