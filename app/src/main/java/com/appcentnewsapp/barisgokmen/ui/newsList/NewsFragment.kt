@@ -1,29 +1,31 @@
-package com.appcentnewsapp.barisgokmen.ui.news
+package com.appcentnewsapp.barisgokmen.ui.newsList
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.appcentnewsapp.barisgokmen.data.model.ArticlesItem
-import com.appcentnewsapp.barisgokmen.databinding.FragmentHomeBinding
 import com.appcentnewsapp.barisgokmen.databinding.FragmentNewsBinding
 import com.appcentnewsapp.barisgokmen.ui.recycler.NewsRecyclerViewAdapter
 import com.appcentnewsapp.barisgokmen.ui.recycler.RecyclerViewItemClickListener
+import com.google.android.material.textfield.TextInputEditText
 
 class NewsFragment : Fragment() {
 
     private lateinit var viewModel: NewsViewModel
     private lateinit var newsListRecyclerViewAdapter: NewsRecyclerViewAdapter
-
     private var _binding: FragmentNewsBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    private val searchDelay: Long = 2000 // 2 seconds delay
+    private val handler = Handler(Looper.getMainLooper())
+    private var searchRunnable: Runnable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,17 +46,8 @@ class NewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initializeRecyclerAdapter()
-
-        viewModel.newsArticles.observe(viewLifecycleOwner) { newsArticles ->
-            newsListRecyclerViewAdapter.setNewsList(newsArticles)
-        }
-
-        // Trigger the news search
-        viewModel.searchNews("ODTÜ")
-
-
-
-        // Rest of your fragment code...
+        setEditText()
+        observeViewModel()
     }
 
     override fun onDestroyView() {
@@ -62,8 +55,31 @@ class NewsFragment : Fragment() {
         _binding = null
     }
 
-    private fun buildResponseText(newsArticles: List<ArticlesItem>?): String {
-        return newsArticles?.get(0)?.description.toString()
+    private fun setEditText(){
+        val searchEditText: TextInputEditText = binding.tieSearch
+        searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Cancel previous searchRunnable if exists
+                searchRunnable?.let { handler.removeCallbacks(it) }
+            }
+            override fun afterTextChanged(s: Editable?) {
+                // Create a new searchRunnable with delay
+                searchRunnable = Runnable {
+                    val query = s.toString()
+                    viewModel.searchNews(query)
+                }
+                // Schedule the searchRunnable with delay
+                handler.postDelayed(searchRunnable!!, searchDelay)
+            }
+        })
+    }
+
+    private fun observeViewModel(){
+        viewModel.newsArticles.observe(viewLifecycleOwner) { newsArticles ->
+            newsListRecyclerViewAdapter.setNewsList(newsArticles)
+        }
     }
 
     private val recyclerViewItemClickListener = object : RecyclerViewItemClickListener<ArticlesItem>{
@@ -72,14 +88,11 @@ class NewsFragment : Fragment() {
         }
     }
 
-
     private fun initializeRecyclerAdapter(){
         newsListRecyclerViewAdapter = NewsRecyclerViewAdapter(recyclerViewItemClickListener)
-        binding?.rvNewsList?.layoutManager =
+        binding.rvNewsList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding?.rvNewsList?.adapter = newsListRecyclerViewAdapter
+        binding.rvNewsList.adapter = newsListRecyclerViewAdapter
     }
-
-
 
 }

@@ -1,9 +1,8 @@
 package com.appcentnewsapp.barisgokmen.data.repository
 
-import com.appcentnewsapp.barisgokmen.data.model.ArticlesItem
 import com.appcentnewsapp.barisgokmen.data.model.NewsResponse
 import com.appcentnewsapp.barisgokmen.data.network.service.NewsService
-import com.appcentnewsapp.barisgokmen.ui.news.NewsViewModel
+import com.appcentnewsapp.barisgokmen.ui.newsList.NewsViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

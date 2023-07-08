@@ -1,4 +1,4 @@
-package com.appcentnewsapp.barisgokmen.ui.news
+package com.appcentnewsapp.barisgokmen.ui.newsList
 
 import android.util.Log
 import androidx.lifecycle.LiveData
