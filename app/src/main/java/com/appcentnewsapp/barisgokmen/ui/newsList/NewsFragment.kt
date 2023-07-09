@@ -27,7 +27,7 @@ class NewsFragment : Fragment() {
     private lateinit var newsListRecyclerViewAdapter: NewsRecyclerViewAdapter
     private var _binding: FragmentNewsBinding? = null
     private val binding get() = _binding!!
-    private val searchDelay: Long = 2000 // 2 seconds delay
+    private val searchDelay: Long = 1500 // 1.5 seconds delay
     private val handler = Handler(Looper.getMainLooper())
     private var searchRunnable: Runnable? = null
 
@@ -72,7 +72,9 @@ class NewsFragment : Fragment() {
                 // Create a new searchRunnable with delay
                 searchRunnable = Runnable {
                     val query = s.toString()
-                    viewModel.callSearchQuery(query)
+                    if (!query.isNullOrBlank()){
+                        viewModel.callSearchQuery(query)
+                    }
                 }
                 // Schedule the searchRunnable with delay
                 handler.postDelayed(searchRunnable!!, searchDelay)
@@ -83,6 +85,20 @@ class NewsFragment : Fragment() {
     private fun observeViewModel(){
         viewModel.newsArticles.observe(viewLifecycleOwner) { newsArticles ->
             newsListRecyclerViewAdapter.setNewsList(newsArticles)
+        }
+
+        viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            checkResultIsEmpty(errorMessage)
+        }
+
+    }
+
+    private fun checkResultIsEmpty(errorMessage:String?){
+        if (!errorMessage.isNullOrBlank()){
+            binding.tvErrorMessage.visibility = View.VISIBLE
+            binding.tvErrorMessage.text = errorMessage
+        } else {
+            binding.tvErrorMessage.visibility = View.GONE
         }
     }
 

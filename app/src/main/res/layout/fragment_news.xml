@@ -57,5 +57,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_error_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="20dp"
+        android:visibility="gone"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        tools:text="Your API key is missing. Append this to the URL with the apiKey param, or use the x-api-key HTTP header."/>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
