@@ -26,9 +26,9 @@ class NewsDetailsActivity : AppCompatActivity() {
         val itemJson = intent.getStringExtra("clickedItemJson")
         articlesItem = Gson().fromJson(itemJson, ArticlesItem::class.java)
 
+        prepareUI()
         checkLiked()
         likeButtonClickListener()
-        prepareUI()
         sourceButtonClickListener()
 
         binding.ibBackbutton.setOnClickListener {
@@ -71,8 +71,6 @@ class NewsDetailsActivity : AppCompatActivity() {
                 SharedPreferencesManager.putArticle(articlesItem?.url, articlesItem)
                 Log.d("LIKES","FALSE")
             }
-
-            SharedPreferencesManager.putArticle(articlesItem?.url, articlesItem)
             checkLiked()
         }
     }

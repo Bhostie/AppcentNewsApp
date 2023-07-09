@@ -34,7 +34,8 @@ object SharedPreferencesManager {
         return gson.fromJson(json, ArticlesItem::class.java)
     }
     fun removeArticle(key: String?) {
-        sharedPreferencesEditor.remove(key).apply()
+        sharedPreferencesEditor.remove(key)
+        sharedPreferencesEditor.apply()
     }
 
     fun isArticleSaved(key: String?): Boolean {
