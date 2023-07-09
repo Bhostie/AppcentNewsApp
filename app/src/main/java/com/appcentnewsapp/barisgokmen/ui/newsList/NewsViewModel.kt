@@ -14,7 +14,7 @@ class NewsViewModel : ViewModel() {
     private val _newsArticles = MutableLiveData<List<ArticlesItem>?>()
     val newsArticles: LiveData<List<ArticlesItem>?> = _newsArticles
 
-    fun searchNews(query: String) {
+    fun callSearchQuery(query: String) {
         newsRepository.searchNews(query, this)
     }
 

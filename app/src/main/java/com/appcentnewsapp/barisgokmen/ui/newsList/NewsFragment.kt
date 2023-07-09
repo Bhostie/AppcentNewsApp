@@ -72,7 +72,7 @@ class NewsFragment : Fragment() {
                 // Create a new searchRunnable with delay
                 searchRunnable = Runnable {
                     val query = s.toString()
-                    viewModel.searchNews(query)
+                    viewModel.callSearchQuery(query)
                 }
                 // Schedule the searchRunnable with delay
                 handler.postDelayed(searchRunnable!!, searchDelay)

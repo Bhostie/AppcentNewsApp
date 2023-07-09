@@ -1,13 +1,31 @@
 package com.appcentnewsapp.barisgokmen.ui.likes
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.appcentnewsapp.barisgokmen.data.model.ArticlesItem
+import com.appcentnewsapp.barisgokmen.data.repository.LocalNewsRepository
 
 class LikedNewsViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+    private val localNewsRepository = LocalNewsRepository()
+    private val _newsArticles = MutableLiveData<List<ArticlesItem>?>()
+    val likedNewsList: LiveData<List<ArticlesItem>?> = _newsArticles
+
+
+    fun getLocalNews() {
+        localNewsRepository.getLocalNews(this)
     }
-    val text: LiveData<String> = _text
+
+    fun onNewsFetched(newsArticles: List<ArticlesItem?>?) {
+
+        if (newsArticles != null) {
+            // Process the fetched news articles and update the UI
+            // Update the LiveData with the list of news articles
+            _newsArticles.value = newsArticles.filterNotNull()
+        }
+    }
+
+
 }

@@ -6,5 +6,6 @@
     <string name="title_news_screen">Appcent NewsApp</string>
     <string name="search_box_hint">Aranacak kelimeyi giriniz</string>
     <string name="news_source">News Source</string>
+    <string name="title_favorites">Favorites</string>
 
 </resources>
