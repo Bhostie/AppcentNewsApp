@@ -48,6 +48,11 @@ class LikedNewsFragment : Fragment() {
         observeViewModel()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getLocalNews()
+    }
+
 
     private fun observeViewModel() {
         viewModel.likedNewsList.observe(viewLifecycleOwner) { newsList ->
