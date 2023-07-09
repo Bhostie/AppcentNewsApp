@@ -13,19 +13,12 @@ class LikedNewsViewModel : ViewModel() {
     private val _newsArticles = MutableLiveData<List<ArticlesItem>?>()
     val likedNewsList: LiveData<List<ArticlesItem>?> = _newsArticles
 
-
     fun getLocalNews() {
         localNewsRepository.getLocalNews(this)
     }
-
     fun onNewsFetched(newsArticles: List<ArticlesItem?>?) {
-
         if (newsArticles != null) {
-            // Process the fetched news articles and update the UI
-            // Update the LiveData with the list of news articles
             _newsArticles.value = newsArticles.filterNotNull()
         }
     }
-
-
 }

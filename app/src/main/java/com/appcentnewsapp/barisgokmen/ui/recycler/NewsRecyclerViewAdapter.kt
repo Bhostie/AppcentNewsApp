@@ -16,18 +16,14 @@ class NewsRecyclerViewAdapter(
         this.newsList = newsList
         notifyDataSetChanged()
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val binding = ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return NewsViewHolder(binding, recyclerViewItemClickListener)
     }
-
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val item = newsList?.getOrNull(position)
         holder.bind(item)
     }
-
-
     override fun getItemCount(): Int {
         return newsList?.size ?: 0
     }

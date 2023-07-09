@@ -37,7 +37,6 @@ class NewsDetailsActivity : AppCompatActivity() {
             finish()
         }
     }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
@@ -52,7 +51,6 @@ class NewsDetailsActivity : AppCompatActivity() {
             return false
         }
     }
-
     private fun shareButtonClickListener(){
         binding.ibSharebutton.setOnClickListener{
             val sendIntent: Intent = Intent().apply {
@@ -65,7 +63,6 @@ class NewsDetailsActivity : AppCompatActivity() {
             startActivity(shareIntent)
         }
     }
-
     private fun sourceButtonClickListener(){
         binding.btnSource.setOnClickListener{
             val intent = intent
@@ -74,7 +71,6 @@ class NewsDetailsActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
     private fun likeButtonClickListener(){
         binding.ibFavoritebutton.setOnClickListener{
 
@@ -89,7 +85,6 @@ class NewsDetailsActivity : AppCompatActivity() {
             checkLiked()
         }
     }
-
     private fun prepareUI(){
         binding.tvNewsauthor.text = articlesItem?.author
         binding.tvNewscontent.text = articlesItem?.content
@@ -97,5 +92,4 @@ class NewsDetailsActivity : AppCompatActivity() {
         binding.tvNewstitle.text = articlesItem?.title
         Picasso.get().load(articlesItem?.urlToImage).into(binding.ivNewsimage)
     }
-
 }

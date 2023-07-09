@@ -27,7 +27,7 @@ class NewsFragment : Fragment() {
     private lateinit var newsListRecyclerViewAdapter: NewsRecyclerViewAdapter
     private var _binding: FragmentNewsBinding? = null
     private val binding get() = _binding!!
-    private val searchDelay: Long = 2000 // 2 seconds delay
+    private val searchDelay: Long = 1500 // 1.5 seconds delay
     private val handler = Handler(Looper.getMainLooper())
     private var searchRunnable: Runnable? = null
 
@@ -35,7 +35,6 @@ class NewsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,7 +44,6 @@ class NewsFragment : Fragment() {
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -53,12 +51,10 @@ class NewsFragment : Fragment() {
         setEditText()
         observeViewModel()
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
     private fun setEditText(){
         val searchEditText: TextInputEditText = binding.tieSearch
         searchEditText.addTextChangedListener(object : TextWatcher {
@@ -72,35 +68,43 @@ class NewsFragment : Fragment() {
                 // Create a new searchRunnable with delay
                 searchRunnable = Runnable {
                     val query = s.toString()
-                    viewModel.callSearchQuery(query)
+                    if (query.isNotBlank()){
+                        viewModel.callSearchQuery(query)
+                    }
                 }
                 // Schedule the searchRunnable with delay
                 handler.postDelayed(searchRunnable!!, searchDelay)
             }
         })
     }
-
     private fun observeViewModel(){
         viewModel.newsArticles.observe(viewLifecycleOwner) { newsArticles ->
             newsListRecyclerViewAdapter.setNewsList(newsArticles)
         }
+        viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            checkResultIsEmpty(errorMessage)
+        }
     }
-
+    private fun checkResultIsEmpty(errorMessage:String?){
+        if (!errorMessage.isNullOrBlank()){
+            binding.tvErrorMessage.visibility = View.VISIBLE
+            binding.tvErrorMessage.text = errorMessage
+        } else {
+            binding.tvErrorMessage.visibility = View.GONE
+        }
+    }
     private val recyclerViewItemClickListener = object : RecyclerViewItemClickListener<ArticlesItem>{
         override fun onClick(item: ArticlesItem?) {
-            Log.d("NewsFragment", "Clicked item: ${item?.title}")
             val intent = Intent(requireContext(), NewsDetailsActivity::class.java)
             val itemJson = Gson().toJson(item)
             intent.putExtra("clickedItemJson", itemJson)
             startActivity(intent)
         }
     }
-
     private fun initializeRecyclerAdapter(){
         newsListRecyclerViewAdapter = NewsRecyclerViewAdapter(recyclerViewItemClickListener)
         binding.rvNewsList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvNewsList.adapter = newsListRecyclerViewAdapter
     }
-
 }

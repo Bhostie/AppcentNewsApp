@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +15,6 @@ import com.appcentnewsapp.barisgokmen.ui.newsDetails.NewsDetailsActivity
 import com.appcentnewsapp.barisgokmen.ui.recycler.NewsRecyclerViewAdapter
 import com.appcentnewsapp.barisgokmen.ui.recycler.RecyclerViewItemClickListener
 import com.google.gson.Gson
-
 
 class LikedNewsFragment : Fragment() {
 
@@ -29,17 +27,14 @@ class LikedNewsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(LikedNewsViewModel::class.java)
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentLikedNewsBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -47,19 +42,15 @@ class LikedNewsFragment : Fragment() {
         viewModel.getLocalNews()
         observeViewModel()
     }
-
     override fun onResume() {
         super.onResume()
         viewModel.getLocalNews()
     }
-
-
     private fun observeViewModel() {
         viewModel.likedNewsList.observe(viewLifecycleOwner) { newsList ->
             newsListRecyclerViewAdapter.setNewsList(newsList)
         }
     }
-
     private val recyclerViewItemClickListener = object :
         RecyclerViewItemClickListener<ArticlesItem> {
         override fun onClick(item: ArticlesItem?) {
@@ -70,15 +61,12 @@ class LikedNewsFragment : Fragment() {
             startActivity(intent)
         }
     }
-
     private fun initializeRecyclerAdapter() {
         newsListRecyclerViewAdapter = NewsRecyclerViewAdapter(recyclerViewItemClickListener)
         binding.rvNewsList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvNewsList.adapter = newsListRecyclerViewAdapter
     }
-
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

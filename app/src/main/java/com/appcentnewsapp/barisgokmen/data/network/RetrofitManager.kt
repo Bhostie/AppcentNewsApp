@@ -57,5 +57,4 @@ object RetrofitManager {
             chain.proceed(modifiedRequest)
         }
     }
-
 }

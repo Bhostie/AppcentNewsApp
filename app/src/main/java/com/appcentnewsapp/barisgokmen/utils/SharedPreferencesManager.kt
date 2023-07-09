@@ -13,16 +13,13 @@ object SharedPreferencesManager {
 
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var sharedPreferencesEditor: SharedPreferences.Editor
-
     init {
         prepareSharedPreferences()
     }
-
     private fun prepareSharedPreferences() {
         sharedPreferences = context.getSharedPreferences(APP_NAME, Context.MODE_PRIVATE)
         sharedPreferencesEditor = sharedPreferences.edit()
     }
-
     fun putArticle(key: String?, value: ArticlesItem?) {
         val gson = Gson()
         val json = gson.toJson(value)
@@ -37,11 +34,9 @@ object SharedPreferencesManager {
         sharedPreferencesEditor.remove(key)
         sharedPreferencesEditor.apply()
     }
-
     fun isArticleSaved(key: String?): Boolean {
         return getArticle(key) != null
     }
-
     fun getSavedArticles(): List<ArticlesItem> {
         val gson = Gson()
         val savedArticles = mutableListOf<ArticlesItem>()
@@ -49,13 +44,7 @@ object SharedPreferencesManager {
             val articleJson = value as String
             val article = gson.fromJson(articleJson, ArticlesItem::class.java)
             savedArticles.add(article)
-
         }
         return savedArticles
     }
-
-
-
-
-
 }
