@@ -12,14 +12,12 @@ class NewsViewModel : ViewModel() {
     private val newsRepository = NewsRepository(RetrofitManager.newsService)
     private val _newsArticles = MutableLiveData<List<ArticlesItem>?>()
     val newsArticles: LiveData<List<ArticlesItem>?> = _newsArticles
-
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
 
     fun callSearchQuery(query: String) {
         newsRepository.searchNews(query, this)
     }
-
     // Called when news articles are successfully fetched
     fun onNewsFetched(newsArticles: List<ArticlesItem?>?) {
 
@@ -36,11 +34,8 @@ class NewsViewModel : ViewModel() {
             }
         }
     }
-
     // Called when there is an error while fetching news articles
     fun onNewsFetchError(errorMessage: String?) {
         _errorMessage.value = errorMessage
     }
-
-
 }

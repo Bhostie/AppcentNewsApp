@@ -13,7 +13,6 @@ class NewsViewHolder(
     fun bind(item: ArticlesItem?) {
         binding.tvTitle.text = item?.title
         binding.tvDescription.text = item?.description
-
         Picasso
             .get()
             .load(item?.urlToImage)

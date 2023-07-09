@@ -11,7 +11,6 @@ class NewsRepository(private val newsApiService: NewsService) {
 
     fun searchNews(query: String, viewModel: NewsViewModel) {
         val call = newsApiService.getNews(query)
-
         call?.enqueue(object : Callback<NewsResponse> {
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
                 if (response.isSuccessful) {
@@ -31,7 +30,7 @@ class NewsRepository(private val newsApiService: NewsService) {
             }
         })
     }
-
+    // This is written by copilot, not me :)
     private fun parseErrorMessage(errorBody: String?): String {
         // Parse the errorBody and extract the actual error message
         return try {

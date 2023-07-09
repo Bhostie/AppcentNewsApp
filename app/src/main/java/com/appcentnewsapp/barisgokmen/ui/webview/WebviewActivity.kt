@@ -28,14 +28,11 @@ class WebviewActivity : AppCompatActivity() {
         binding.ibBackbutton.setOnClickListener {
             finish()
         }
-
     }
-
     override fun onPause() {
         super.onPause()
         webView.onPause()
     }
-
     override fun onResume() {
         super.onResume()
         webView.onResume()
@@ -51,5 +48,4 @@ class WebviewActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
-
 }
