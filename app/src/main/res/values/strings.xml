@@ -6,7 +6,7 @@
     <string name="bottom_news">News</string>
     <string name="bottom_favorites">Favorites</string>
     <string name="title_news_screen">Appcent NewsApp</string>
-    <string name="search_box_hint">Aranacak kelimeyi giriniz</string>
+    <string name="search_box_hint">Type a text</string>
     <string name="news_source">News Source</string>
     <string name="title_favorites">Favorites</string>
     <string name="share_url">Share Source URL</string>
