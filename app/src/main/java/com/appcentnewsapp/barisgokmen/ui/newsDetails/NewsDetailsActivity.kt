@@ -1,5 +1,6 @@
 package com.appcentnewsapp.barisgokmen.ui.newsDetails
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -30,6 +31,7 @@ class NewsDetailsActivity : AppCompatActivity() {
         checkLiked()
         likeButtonClickListener()
         sourceButtonClickListener()
+        shareButtonClickListener()
 
         binding.ibBackbutton.setOnClickListener {
             finish()
@@ -40,7 +42,7 @@ class NewsDetailsActivity : AppCompatActivity() {
         super.onDestroy()
         _binding = null
     }
-    fun checkLiked(): Boolean{
+    private fun checkLiked(): Boolean{
         if (SharedPreferencesManager.isArticleSaved(articlesItem?.url)) {
             binding.ibFavoritebutton.setImageResource(R.drawable.ic_favorite)
             return true
@@ -48,6 +50,19 @@ class NewsDetailsActivity : AppCompatActivity() {
         else {
             binding.ibFavoritebutton.setImageResource(R.drawable.ic_favorite_border)
             return false
+        }
+    }
+
+    private fun shareButtonClickListener(){
+        binding.ibSharebutton.setOnClickListener{
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, articlesItem?.url)
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, "@string/share_url")
+            startActivity(shareIntent)
         }
     }
 

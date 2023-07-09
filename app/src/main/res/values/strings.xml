@@ -9,5 +9,6 @@
     <string name="search_box_hint">Aranacak kelimeyi giriniz</string>
     <string name="news_source">News Source</string>
     <string name="title_favorites">Favorites</string>
+    <string name="share_url">Share Source URL</string>
 
 </resources>
