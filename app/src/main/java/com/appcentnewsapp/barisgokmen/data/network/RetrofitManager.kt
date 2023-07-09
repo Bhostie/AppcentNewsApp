@@ -47,6 +47,7 @@ object RetrofitManager {
 
         return httpLoggingInterceptor
     }
+    // API key is added to every request as header for security reasons
     private fun createApiKeyInterceptor(): Interceptor {
         return Interceptor { chain ->
             val originalRequest = chain.request()
