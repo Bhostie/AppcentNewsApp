@@ -27,7 +27,7 @@
         android:backgroundTint="@color/white"
         android:paddingTop="15dp"
         android:paddingHorizontal="15dp"
-        android:src="@drawable/ic_favorite" />
+        android:src="@drawable/ic_favorite_border" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/ib_sharebutton"
