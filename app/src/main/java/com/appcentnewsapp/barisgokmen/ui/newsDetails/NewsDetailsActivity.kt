@@ -3,7 +3,6 @@ package com.appcentnewsapp.barisgokmen.ui.newsDetails
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import com.appcentnewsapp.barisgokmen.R
 import com.appcentnewsapp.barisgokmen.data.model.ArticlesItem
@@ -77,11 +76,11 @@ class NewsDetailsActivity : AppCompatActivity() {
 
             if(checkLiked()){
                 SharedPreferencesManager.removeArticle(articlesItem?.url)
-                showToast("@strning/removed_from_favorites")
+                showToast(R.string.removed_from_favorites)
             }
             else{
                 SharedPreferencesManager.putArticle(articlesItem?.url, articlesItem)
-                showToast("@string/added_to_favorites")
+                showToast(R.string.added_to_favorites)
             }
             checkLiked()
         }
@@ -93,7 +92,8 @@ class NewsDetailsActivity : AppCompatActivity() {
         binding.tvNewstitle.text = articlesItem?.title
         Picasso.get().load(articlesItem?.urlToImage).into(binding.ivNewsimage)
     }
-    private fun showToast(message: String) {
+    private fun showToast(messageResId: Int) {
+        val message = getString(messageResId)
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
