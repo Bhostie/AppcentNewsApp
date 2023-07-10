@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.appcentnewsapp.barisgokmen.R
 import com.appcentnewsapp.barisgokmen.data.model.ArticlesItem
 import com.appcentnewsapp.barisgokmen.databinding.ActivityNewsDetailsBinding
@@ -76,11 +77,11 @@ class NewsDetailsActivity : AppCompatActivity() {
 
             if(checkLiked()){
                 SharedPreferencesManager.removeArticle(articlesItem?.url)
-                Log.d("LIKES","TRUE")
+                showToast("@strning/removed_from_favorites")
             }
             else{
                 SharedPreferencesManager.putArticle(articlesItem?.url, articlesItem)
-                Log.d("LIKES","FALSE")
+                showToast("@string/added_to_favorites")
             }
             checkLiked()
         }
@@ -91,5 +92,8 @@ class NewsDetailsActivity : AppCompatActivity() {
         binding.tvDate.text = articlesItem?.publishedAt
         binding.tvNewstitle.text = articlesItem?.title
         Picasso.get().load(articlesItem?.urlToImage).into(binding.ivNewsimage)
+    }
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

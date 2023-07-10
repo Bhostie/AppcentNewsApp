@@ -10,5 +10,7 @@
     <string name="news_source">News Source</string>
     <string name="title_favorites">Favorites</string>
     <string name="share_url">Share Source URL</string>
+    <string name="added_to_favorites">Article added to favorites</string>
+    <string name="removed_from_favorites">Article removed from favorites</string>
 
 </resources>
