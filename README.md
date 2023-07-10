@@ -12,6 +12,7 @@ Screenshots of the application:<br>
 ![image](https://github.com/Bhostie/AppcentNewsApp/assets/88517411/c76add2a-9e4f-4ff7-8857-25e358b3ebea)
 ![image](https://github.com/Bhostie/AppcentNewsApp/assets/88517411/60897e21-d85c-402c-8172-6c53fddba7e5)
 ![image](https://github.com/Bhostie/AppcentNewsApp/assets/88517411/f3938720-11c2-4d35-b404-cdbbe1fb4f3a)
+![image](https://github.com/Bhostie/AppcentNewsApp/assets/88517411/efbf1620-daf2-439b-afdd-c280f33f57bd)
 
 
 
